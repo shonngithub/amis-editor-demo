@@ -29,15 +29,15 @@ export default inject('store')(
         <>
           <div className={`cxd-Layout-brandBar`}>
             <div className="cxd-Layout-brand text-ellipsis">
-              <i className="fa fa-paw"></i>
-              <span className="hidden-folded m-l-sm">AMIS 示例</span>
+              {/* <i className="fa fa-paw"></i> */}
+              {/* <span className="hidden-folded m-l-sm">AMIS 示例</span> */}
             </div>
           </div>
           <div className={`cxd-Layout-headerBar`}>
             <div className="hidden-xs p-t-sm ml-auto px-2">
-              <Button size="sm" className="m-r-xs" level="success" disabled>
-                全部导出
-              </Button>
+              {/*<Button size="sm" className="m-r-xs" level="success" >*/}
+              {/*  全部导出*/}
+              {/*</Button>*/}
               <Button
                 size="sm"
                 level="info"

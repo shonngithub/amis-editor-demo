@@ -64,4 +64,5 @@ gh-pages
 /public
 .DS_Store
 
-package-lock.json
+.idea
+/test

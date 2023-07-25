@@ -51,9 +51,13 @@ module.exports = {
        * 将含有'/apiTest'路径的api代理到'http://api-test.com.cn'上，
        * 详细使用见 https://www.webpackjs.com/configuration/dev-server/#devserver-proxy
        */
-      '/apiTest': {
-        target: 'http://api-test.com.cn', // 不支持跨域的接口根地址
-        ws: true,
+      // '/apiTest': {
+      //   target: 'http://api-test.com.cn', // 不支持跨域的接口根地址
+      //   ws: true,
+      //   changeOrigin: true,
+      // },
+      '/api/v1': {
+        target: 'http://lite.knx.com/',
         changeOrigin: true,
       },
     }
@@ -65,8 +69,8 @@ module.exports = {
     },
     // 用于构建生产环境代码的相关配置信息
     NODE_ENV: 'production',
-    assetsRoot: resolve('./demo'), // 打包后的文件绝对路径（物理路径）
-    assetsPublicPath: 'https://aisuda.github.io/amis-editor-demo/demo/', // 设置静态资源的引用路径（根域名+路径）
+    assetsRoot: resolve('./jsonEdit'), // 打包后的文件绝对路径（物理路径）
+    assetsPublicPath: '/jsonEdit', // 设置静态资源的引用路径（根域名+路径）
     assetsSubDirectory: '', // 资源引用二级路径
     productionSourceMap: false,
     productionGzip: false,

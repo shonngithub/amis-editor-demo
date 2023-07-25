@@ -18,6 +18,6 @@ export default class MyRenderer extends React.Component<MyRendererProps> {
   render() {
     const {target} = this.props;
 
-    return <p>Hello {target}! @amis-editor</p>;
+    return <p>参数: {target}! 自定义组件</p>;
   }
 }

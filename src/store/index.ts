@@ -1,23 +1,24 @@
 import {types, getEnv, applySnapshot, getSnapshot} from 'mobx-state-tree';
 import {PageStore} from './Page';
 import {when, reaction} from 'mobx';
+import jsonApi from '../api';
 let pagIndex = 1;
 export const MainStore = types
   .model('MainStore', {
     pages: types.optional(types.array(PageStore), [
       {
         id: `${pagIndex}`,
-        path: 'hello-world',
-        label: 'Hello world',
+        path: 'test',
+        label: '示例',
         icon: 'fa fa-file',
         schema: {
           type: 'page',
-          title: 'Hello world',
+          title: '示例页面',
           body: '初始页面'
         }
       }
     ]),
-    theme: 'cxd',
+    theme: 'antd',
     asideFixed: true,
     asideFolded: false,
     offScreen: false,
@@ -106,7 +107,44 @@ export const MainStore = types
         // persist store
         if (typeof window !== 'undefined' && window.localStorage) {
           const storeData = window.localStorage.getItem('store');
+          console.log(JSON.parse(storeData || ''));
           if (storeData) applySnapshot(self, JSON.parse(storeData));
+
+          jsonApi.getAllFile().then(res => {
+            console.log(res);
+            const resList = res.data || [];
+            const initData = {
+              pages: resList.map((it: any) => {
+                let item = JSON.parse(it.content);
+                return {
+                  id: `${item.id}`,
+                  path: item.path,
+                  label: item.label,
+                  icon: item.icon,
+                  schema: item.schema
+                };
+              }),
+              theme: 'antd',
+              asideFixed: true,
+              asideFolded: false,
+              offScreen: false,
+              addPageIsOpen: false,
+              preview: false,
+              isMobile: false
+            };
+            initData.pages.unshift({
+              id: `0`,
+              path: 'test',
+              label: '示例',
+              icon: 'fa fa-file',
+              schema: {
+                type: 'page',
+                title: '示例页面',
+                body: '初始页面'
+              }
+            });
+            applySnapshot(self, initData);
+          });
 
           reaction(
             () => getSnapshot(self),

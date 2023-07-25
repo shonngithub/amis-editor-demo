@@ -2,13 +2,14 @@ import React from 'react';
 import {Editor, ShortcutKey} from 'amis-editor';
 import {inject, observer} from 'mobx-react';
 import {RouteComponentProps} from 'react-router-dom';
-import {toast, Select} from 'amis';
+import {toast, Select, alert} from 'amis';
 import {currentLocale} from 'i18n-runtime';
 import {Icon} from '../icons/index';
 import {IMainStore} from '../store';
 import '../editor/DisabledEditorPlugin'; // 用于隐藏一些不需要的Editor预置组件
 import '../renderer/MyRenderer';
 import '../editor/MyRenderer';
+import jsonApi from '../api';
 
 let currentIndex = -1;
 
@@ -50,11 +51,32 @@ export default inject('store')(
     }
 
     function save() {
+      console.log(index);
       store.updatePageSchemaAt(index);
       toast.success('保存成功', '提示');
     }
 
+    async function submit() {
+      console.log(store.schema, store.pages[index]);
+      // console.log(jsonApi);
+      const res = await jsonApi.saveFile({
+        path: store.pages[index].path,
+        content: store.pages[index]
+      });
+      console.log(res);
+      alert(
+        '发布成功,页面地址:  ' +
+          window.location.origin +
+          window.location.pathname +
+          '#/publishPage' +
+          res.data.path,
+        '提示'
+      );
+      // toast.success(store.schema, 'json')
+    }
+
     function onChange(value: any) {
+      console.log(value);
       store.updateSchema(value);
       store.updatePageSchemaAt(index);
     }
@@ -65,13 +87,14 @@ export default inject('store')(
     }
 
     function exit() {
+      console.log(store);
       history.push(`/${store.pages[index].path}`);
     }
 
     return (
       <div className="Editor-Demo">
         <div className="Editor-header">
-          <div className="Editor-title">amis 可视化编辑器</div>
+          <div className="Editor-title">可视化编辑器</div>
           <div className="Editor-view-mode-group-container">
             <div className="Editor-view-mode-group">
               <div
@@ -99,15 +122,15 @@ export default inject('store')(
 
           <div className="Editor-header-actions">
             <ShortcutKey />
-            <Select
-              className="margin-left-space"
-              options={editorLanguages}
-              value={curLanguage}
-              clearable={false}
-              onChange={(e: any) => changeLocale(e.value)}
-            />
+            {/*<Select*/}
+            {/*  className="margin-left-space"*/}
+            {/*  options={editorLanguages}*/}
+            {/*  value={curLanguage}*/}
+            {/*  clearable={false}*/}
+            {/*  onChange={(e: any) => changeLocale(e.value)}*/}
+            {/*/>*/}
             <div
-              className={`header-action-btn m-1 ${
+              className={`margin-left-space header-action-btn m-1 ${
                 store.preview ? 'primary' : ''
               }`}
               onClick={() => {
@@ -121,11 +144,14 @@ export default inject('store')(
                 退出
               </div>
             )}
+            <div className={`header-action-btn exit-btn`} onClick={submit}>
+              提交发布
+            </div>
           </div>
         </div>
         <div className="Editor-inner">
           <Editor
-            theme={'cxd'}
+            theme={'antd'}
             preview={store.preview}
             isMobile={store.isMobile}
             value={store.schema}
