@@ -8,9 +8,6 @@ import AMISRenderer from '../component/AMISRenderer';
 import {useCallback, useState, useContext, useEffect} from 'react';
 import {observer} from 'mobx-react';
 import jsonApi from '../api';
-let amisScoped;
-let theme = 'cxd';
-let locale = 'zh-CN';
 
 const PublishPage = () => {
   const store = useContext(MainStoreContext);

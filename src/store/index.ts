@@ -107,7 +107,6 @@ export const MainStore = types
         // persist store
         if (typeof window !== 'undefined' && window.localStorage) {
           const storeData = window.localStorage.getItem('store');
-          console.log(JSON.parse(storeData || ''));
           if (storeData) applySnapshot(self, JSON.parse(storeData));
 
           jsonApi.getAllFile().then(res => {
