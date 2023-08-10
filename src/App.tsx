@@ -2,7 +2,7 @@ import React from 'react';
 import {Provider} from 'mobx-react';
 import {toast, alert, confirm} from 'amis';
 import axios from 'axios';
-import {MainStore} from './store/index';
+import {MainStore} from './store';
 import RootRoute from './route/index';
 import copy from 'copy-to-clipboard';
 
@@ -14,8 +14,14 @@ export default function (): JSX.Element {
         config = config || {};
         config.headers = config.headers || headers || {};
         config.withCredentials = true;
+          console.log('/api>',url);
 
-        if (method !== 'post' && method !== 'put' && method !== 'patch') {
+          // 替换图片上传接口
+          if (url.indexOf('/api/upload/image') > -1) {
+            url = '/open-api/upload_static_file/recruitment';
+          }
+
+          if (method !== 'post' && method !== 'put' && method !== 'patch') {
           if (data) {
             config.params = data;
           }

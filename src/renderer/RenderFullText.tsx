@@ -1,29 +1,37 @@
 import {Renderer} from 'amis';
 import {RendererProps} from 'amis';
-import React from 'react';
+import React,{useState} from 'react';
+import {Button, ListGroup, SearchBox} from "amis-ui";
+// import {Button} from 'antd'
 
 export interface MyRendererProps extends RendererProps {
-  imgUrl?: string;
+  target?: string;
 }
 
 @Renderer({
-  test: /\bmy-renderer$/,
-  name: 'my-renderer'
+  // test: /\br2$/,
+  type: 'render-fulltext',
+  autoVar: true,
+  name: 'render-fulltext'
 })
-export default class MyRenderer extends React.Component<MyRendererProps> {
+export default class RenderImg extends React.Component<MyRendererProps> {
   static defaultProps = {
     // https://infinityicon.infinitynewtab.com/user-share-icon/226d9bd6e7176a22d1696d751947a178.png
-    imgUrl: "",
+    url: "",
     width: '100px',
     height: '100px'
   };
 
+
+
   render() {
-    const { width, height, imgUrl, ...args} = this.props;
-    // console.log(width, height, imgUrl);
+    const {url, width, height} = this.props;
+
     return (
         <div>
-          <img style={{width, height }} src={imgUrl} alt=""/>
+
+11111111
+
         </div>
     );
   }

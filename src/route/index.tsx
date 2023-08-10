@@ -6,6 +6,8 @@ import {IMainStore} from '../store/index';
 // import Preview from './Preview';
 // import Editor from './Editor';
 import '../renderer/MyRenderer';
+import '../renderer/RenderImg';
+import '../renderer/RenderJobList';
 const Preview = React.lazy(() => import('./Preview'));
 const Editor = React.lazy(() => import('./Editor'));
 const PublishPage = React.lazy(() => import('./PublishPage'));

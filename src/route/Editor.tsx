@@ -1,5 +1,5 @@
 import React from 'react';
-import {Editor, ShortcutKey} from 'amis-editor';
+import {Editor, ShortcutKey, MiniEditor} from 'amis-editor';
 import {inject, observer} from 'mobx-react';
 import {RouteComponentProps} from 'react-router-dom';
 import {toast, Select, alert} from 'amis';
@@ -7,8 +7,14 @@ import {currentLocale} from 'i18n-runtime';
 import {Icon} from '../icons/index';
 import {IMainStore} from '../store';
 import '../editor/DisabledEditorPlugin'; // 用于隐藏一些不需要的Editor预置组件
-import '../renderer/MyRenderer';
+// import '../renderer/MyRenderer';
 import '../editor/MyRenderer';
+import '../editor/RenderImg';
+import '../editor/RenderImg1';
+
+
+// import '../renderer/RenderFullText';
+
 import jsonApi from '../api';
 
 let currentIndex = -1;

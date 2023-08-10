@@ -2,6 +2,7 @@ import {types, getEnv, applySnapshot, getSnapshot} from 'mobx-state-tree';
 import {PageStore} from './Page';
 import {when, reaction} from 'mobx';
 import jsonApi from '../api';
+import {toast} from "amis";
 let pagIndex = 1;
 export const MainStore = types
   .model('MainStore', {
@@ -111,6 +112,10 @@ export const MainStore = types
 
           jsonApi.getAllFile().then(res => {
             console.log(res);
+            if(res.code !== 0){
+              toast.info(res.msg);
+              // window.open('/#/login', '_self');
+            }
             const resList = res.data || [];
             const initData = {
               pages: resList.map((it: any) => {
