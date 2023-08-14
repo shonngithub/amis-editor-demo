@@ -2,7 +2,7 @@ import {Renderer} from 'amis';
 import {RendererProps} from 'amis';
 import React, {useEffect, useState} from 'react';
 import {Button, ListGroup, Pagination} from "amis-ui";
-import axios from 'axios';
+import dayjs from 'dayjs';
 
 
 interface Job {
@@ -27,7 +27,7 @@ const RenderJobList: React.FC<RenderJobListProps> = (
     const [currentPage, setCurrentPage] = useState(1);
     const [jobs, setJobs] = useState<Job[]>([]);
     const [total, setTotal] = useState(0);
-    // console.log(args);
+    console.log(args);
     const fetcher = args.env.fetcher;
 
 
@@ -62,15 +62,15 @@ const RenderJobList: React.FC<RenderJobListProps> = (
 
   return (
       <div className={className}>
-        <div className="container mx-auto p-4">
+        <div className="mx-auto p-4">
           <h1 className="text-2xl mb-4">职位列表</h1>
-          <div className="space-y-4">
+          <div className="grid lg:grid-cols-2 xl:grid-cols-4 gap-4 md:grid-cols-1 sm:grid-cols-1">
             {currentJobs.map((job, index) => (
-                <div key={index} className="border p-4 rounded-md shadow-md">
+                <div key={index} className="border p-4 rounded-md shadow-md space-y-4">
                   <h2 className="text-xl font-semibold">{job.name}</h2>
                   <p>薪资: {job.minimumwage}_{job.Maximumsalary}{}</p>
                   <p>工作地址: {job.locationtestChineseName}</p>
-                  <p>发布时间: {job.createdTime}</p>
+                  <p>发布时间: {dayjs(job.createdTime).format('YYYY-MM-DD')}</p>
                 </div>
             ))}
           </div>
