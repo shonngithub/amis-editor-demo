@@ -63,47 +63,74 @@ export class MyRendererPlugin1 extends BasePlugin {
     //     ];
     // };
 
-    // panelBody = [
-    //     {
-    //         type: 'tabs',
-    //         tabsMode: 'line',
-    //         className: 'm-t-n-xs',
-    //         contentClassName: 'no-border p-l-none p-r-none',
-    //         tabs: [
-    //             {
-    //                 title: '常规111',
-    //                 body: [
-    //                     {
-    //                         name: 'target',
-    //                         label: 'Target',
-    //                         type: 'input-text'
-    //                     }
-    //                 ]
-    //             },
-    //
-    //             {
-    //                 title: '外观',
-    //                 body: []
-    //             }
-    //         ]
-    //     }
-    // ];
+    panelBody = [
+        {
+            type: 'tabs',
+            tabsMode: 'line',
+            className: 'm-t-n-xs',
+            contentClassName: 'no-border p-l-none p-r-none',
+            tabs: [
+                {
+                    title: '常规',
+                    body: [
+                        {
+                            name: 'target',
+                            label: 'Target',
+                            type: 'input-text'
+                        },
+                        {
+                            "type": "checkboxes",
+                            "label": "配置展示字段",
+                            "name": "checkboxes",
+                            "multiple": true,
+                            "options": [
+                                {
+                                    "label": "职位名称",
+                                    "value": "A"
+                                },
+                                {
+                                    "label": "薪资",
+                                    "value": "B"
+                                },
+                                {
+                                    "label": "工作地址",
+                                    "value": "C"
+                                },
+                                {
+                                    "label": "发布时间",
+                                    "value": "D"
+                                }
+                            ],
+                            "checkAll": true,
+                            "joinValues": true,
+                            "value": "A,B"
+                        }
+                    ]
+                },
+                //
+                // {
+                //     title: '外观',
+                //     body: []
+                // }
+            ]
+        }
+    ];
 
     // /**
     //  * 配置了 panelControls 自动生成配置面板
     //  * @param context
     //  * @param panels
     //  */
-    buildEditorPanel(context:BuildPanelEventContext, panels:BasicPanelItem[]) {
-      panels.push({
-            icon: 'your-icon', // 添加 icon 属性
-            key: 'panel1',
-            title: '设置',
-            render: () => {
-                return <div>面板内容</div>;
-            }
-      });
-    }
+    // buildEditorPanel(context:BuildPanelEventContext, panels:BasicPanelItem[]) {
+    //   panels.push({
+    //         icon: 'your-icon', // 添加 icon 属性
+    //         key: 'panel1',
+    //         title: '设置',
+    //         render: () => {
+    //             return <div>面板内容</div>;
+    //         }
+    //   });
+    // }
 }
 // 方式 1，注册默认插件，所有编辑器实例都会自动实例话。
 // import {registerEditorPlugin} from 'amis-editor';
