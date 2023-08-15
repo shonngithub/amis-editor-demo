@@ -74,14 +74,44 @@ export class MyRendererPlugin1 extends BasePlugin {
                     title: '常规',
                     body: [
                         {
-                            name: 'target',
-                            label: 'Target',
-                            type: 'input-text'
+                            "name": "switchSearch",
+                            "type": "switch",
+                            "value": true,
+                            "label": "是否启用搜索",
+                        },
+                        {
+                            "type": "checkboxes",
+                            "label": "配置可搜索字段",
+                            "name": "searchBoxKeys",
+                            "inline": false,
+                            "multiple": true,
+                            "options": [
+                                {
+                                    "label": "职位名称",
+                                    "value": "A"
+                                },
+                                // {
+                                //     "label": "薪资",
+                                //     "value": "B"
+                                // },
+                                // {
+                                //     "label": "工作地址",
+                                //     "value": "C"
+                                // },
+                                {
+                                    "label": "发布时间",
+                                    "value": "D"
+                                }
+                            ],
+                            "checkAll": true,
+                            "joinValues": true,
+                            "value": "A,D"
                         },
                         {
                             "type": "checkboxes",
                             "label": "配置展示字段",
-                            "name": "checkboxes",
+                            "name": "showBoxKeys",
+                            "inline": false,
                             "multiple": true,
                             "options": [
                                 {
@@ -103,7 +133,7 @@ export class MyRendererPlugin1 extends BasePlugin {
                             ],
                             "checkAll": true,
                             "joinValues": true,
-                            "value": "A,B"
+                            "value": "A,B,C,D"
                         }
                     ]
                 },

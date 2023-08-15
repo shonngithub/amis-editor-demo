@@ -10,7 +10,7 @@ import '../editor/DisabledEditorPlugin'; // 用于隐藏一些不需要的Editor
 // import '../renderer/MyRenderer';
 import '../editor/MyRenderer';
 import '../editor/RenderImg';
-import '../editor/RenderImg1';
+import '../editor/RenderJobList';
 
 
 // import '../renderer/RenderFullText';
