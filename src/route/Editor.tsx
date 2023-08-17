@@ -9,8 +9,9 @@ import {IMainStore} from '../store';
 import '../editor/DisabledEditorPlugin'; // 用于隐藏一些不需要的Editor预置组件
 // import '../renderer/MyRenderer';
 import '../editor/MyRenderer';
-import '../editor/RenderImg';
+// import '../editor/RenderImg';
 import '../editor/RenderJobList';
+import '../editor/RenderJobDetail';
 
 
 // import '../renderer/RenderFullText';
@@ -23,9 +24,9 @@ let host = `${window.location.protocol}//${window.location.host}`;
 let iframeUrl = '/editor.html';
 
 // 如果在 gh-pages 里面
-if (/^\/amis-editor-demo/.test(window.location.pathname)) {
-  host += '/amis-editor';
-  iframeUrl = '/amis-editor-demo/demo' + iframeUrl;
+if (/^\/jsonEdit/.test(window.location.pathname)) {
+  host += '/jsonEdit';
+  iframeUrl = '/jsonEdit' + iframeUrl;
 }
 
 const schemaUrl = `${host}/schema.json`;
@@ -66,18 +67,23 @@ export default inject('store')(
       console.log(store.schema, store.pages[index]);
       // console.log(jsonApi);
       const res = await jsonApi.saveFile({
-        path: store.pages[index].path,
+        id: store.pages[index].id,
         content: store.pages[index]
       });
       console.log(res);
-      alert(
-        '发布成功,页面地址:  ' +
-          window.location.origin +
-          window.location.pathname +
-          '#/publishPage' +
-          res.data.path,
-        '提示'
-      );
+      if(res.code===0){
+        alert(
+            '发布成功,页面地址:    ' +
+            window.location.origin +
+            window.location.pathname +
+            '#/publishPage/' +
+            store.pages[index].id,
+            '提示'
+        );
+      }else {
+        toast.error('发布失败'+res.msg);
+      }
+
       // toast.success(store.schema, 'json')
     }
 

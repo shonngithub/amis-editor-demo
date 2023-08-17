@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {mountInIframe} from 'amis-editor-core';
+import 'tailwindcss/tailwind.css';
 import '@fortawesome/fontawesome-free/css/all.css';
 import '@fortawesome/fontawesome-free/css/v4-shims.css';
 // import 'amis/lib/themes/default.css';
@@ -12,6 +13,7 @@ import {setDefaultTheme} from "amis";
 import './renderer/MyRenderer';
 import './renderer/RenderImg';
 import './renderer/RenderJobList';
+import './renderer/RenderJobDetail';
 
 setDefaultTheme('antd');
 

@@ -12,10 +12,10 @@ export class MyRendererPlugin1 extends BasePlugin {
 
     // 用来配置名称和描述
     name = '职位列表';
-    description = '这只是个示例';
+    description = '职位列表';
 
     // tag，决定会在哪个 tab 下面显示的
-    // tags = ['自定义', '表单项'];
+    tags = ['模板'];
 
     // 图标
     icon = 'fa fa-user';
@@ -73,6 +73,11 @@ export class MyRendererPlugin1 extends BasePlugin {
                 {
                     title: '常规',
                     body: [
+                        {
+                            "name": "jobDetailPath",
+                            "type": "input-text",
+                            "label": "职位详情页跳转路径",
+                        },
                         {
                             "name": "switchSearch",
                             "type": "switch",

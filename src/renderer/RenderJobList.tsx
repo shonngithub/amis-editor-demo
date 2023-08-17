@@ -7,11 +7,12 @@ import SearchBar from "../component/SearchBar";
 
 
 interface Job {
+    id: string,
     name: string;
     minimumwage: string;
     Maximumsalary: string;
-    locationtestChineseName: string;
-    createdTime: string;
+    addressChineseName: string;
+    ReleaseDate: string;
 }
 
 
@@ -20,7 +21,8 @@ interface RenderJobListProps extends RendererProps {
   itemsPerPage: number;
   searchBoxKeys?: string;
   showBoxKeys?: string;
-    switchSearch?: boolean;
+  switchSearch?: boolean;
+  jobDetailPath?: string
 }
 
 const RenderJobList: React.FC<RenderJobListProps> = (
@@ -28,6 +30,7 @@ const RenderJobList: React.FC<RenderJobListProps> = (
        itemsPerPage = 8,
        className,
         env,
+        jobDetailPath,
         ...args
     }) => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -47,7 +50,7 @@ const RenderJobList: React.FC<RenderJobListProps> = (
 
     const fetchJobs = useCallback(()=>{
         return fetcher('/api/v1/pc/job/getAllList',
-            {tenantId:9852130, searchKeys, pageNum: currentPage, pageSize: itemsPerPage},
+            {tenantId:9852130, ...searchKeys, pageNum: currentPage, pageSize: itemsPerPage},
             {
                 method: 'post',
                 headers: {
@@ -57,7 +60,6 @@ const RenderJobList: React.FC<RenderJobListProps> = (
     },[currentPage, itemsPerPage, searchKeys])
 
     useEffect(() => {
-        console.log(fetchJobs());
         fetchJobs().then((res) => {
             console.log('res>>>>>>>>',res.data);
             setTotal(res.data.total);
@@ -73,6 +75,12 @@ const RenderJobList: React.FC<RenderJobListProps> = (
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
+  };
+
+  const toDetail = (id: string) => {
+      console.log(id);
+      if(!jobDetailPath) return;
+      window.location.href = `?id=${id}&tenantId=${localStorage.getItem('tenantId')||9852130}#${jobDetailPath}`
   };
 
   return (
@@ -93,11 +101,11 @@ const RenderJobList: React.FC<RenderJobListProps> = (
             </div>}
           <div className="grid lg:grid-cols-2 xl:grid-cols-4 gap-4 md:grid-cols-1 sm:grid-cols-1">
             {jobs.map((job, index) => (
-                <div key={index} className="border p-4 rounded-md shadow-md space-y-4">
+                <div onClick={()=>toDetail(job.id)} key={index} className="border p-4 rounded-md shadow-md space-y-4 cursor-pointer">
                     {hasKey('A', showBoxKeys) && <h2 className="text-xl font-semibold">{job.name}</h2>}
                     {hasKey('B', showBoxKeys) && <p>薪资: {job.minimumwage}_{job.Maximumsalary}{}</p>}
-                    {hasKey('C', showBoxKeys) && <p>工作地址: {job.locationtestChineseName}</p>}
-                    {hasKey('D', showBoxKeys) && <p>发布时间: {dayjs(job.createdTime).format('YYYY-MM-DD')}</p>}
+                    {hasKey('C', showBoxKeys) && <p>工作地址: {job.addressChineseName}</p>}
+                    {hasKey('D', showBoxKeys) && <p>发布时间: {dayjs(job.ReleaseDate).format('YYYY-MM-DD')}</p>}
                 </div>
             ))}
           </div>

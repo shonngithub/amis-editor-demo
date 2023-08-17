@@ -1,12 +1,13 @@
 import React from 'react';
 import {observer, inject} from 'mobx-react';
 import {IMainStore} from '../store';
-import {Button, AsideNav, Layout, confirm} from 'amis';
+import {Button, AsideNav, Layout, confirm, toast} from 'amis';
 import {RouteComponentProps, matchPath, Switch, Route} from 'react-router';
 import {Link} from 'react-router-dom';
 import NotFound from './NotFound';
 import AMISRenderer from '../component/AMISRenderer';
 import AddPageModal from '../component/AddPageModal';
+import jsonApi from "../api";
 
 function isActive(link: any, location: any) {
   const ret = matchPath(location?.pathname, {
@@ -28,13 +29,13 @@ export default inject('store')(
       return (
         <>
           <div className={`cxd-Layout-brandBar`}>
-            <div className="cxd-Layout-brand text-ellipsis">
+            {/*<div className="cxd-Layout-brand text-ellipsis float-left">*/}
               {/* <i className="fa fa-paw"></i> */}
-              {/* <span className="hidden-folded m-l-sm">AMIS 示例</span> */}
-            </div>
+              {/* <span className="hidden-folded m-l-sm">AMIS 页面编辑器</span>*/}
+            {/*</div>*/}
           </div>
           <div className={`cxd-Layout-headerBar`}>
-            <div className="hidden-xs p-t-sm ml-auto px-2">
+            <div className="hidden-xs p-t-sm ml-auto px-2 float-right clear-both">
               {/*<Button size="sm" className="m-r-xs" level="success" >*/}
               {/*  全部导出*/}
               {/*</Button>*/}
@@ -124,7 +125,7 @@ export default inject('store')(
                   onClick={(e: React.MouseEvent) => {
                     e.preventDefault();
                     confirm('确认要删除').then(confirmed => {
-                      confirmed && store.removePageAt(paths.indexOf(link.path));
+                      confirmed && remove(paths, link);
                     });
                   }}
                 />
@@ -181,16 +182,41 @@ export default inject('store')(
       );
     }
 
-    function handleConfirm(value: {label: string; icon: string; path: string}) {
-      store.addPage({
+    async function remove(paths:string[], link: { path: string; }) {
+      // console.log(link);
+      const it = store.pages.filter((item: any) => ('/' + item.path) === link.path)
+      console.log(it[0]);
+      const res= await jsonApi.remove(it[0].id);
+      // console.log(res);
+      if(res.code===0){
+        store.removePageAt(paths.indexOf(link.path));
+        toast.success('删除成功');
+      }else {
+        toast.error('删除失败'+res.msg);
+      }
+    }
+
+    async function handleConfirm(value: {id?: string; label: string; icon: string; path: string}) {
+      const content = {
         ...value,
         schema: {
           type: 'page',
           title: value.label,
           body: '这是你刚刚新增的页面。'
         }
+      }
+      const res= await jsonApi.saveFile({
+        content: content
       });
-      store.setAddPageIsOpen(false);
+      // console.log(res);
+      if(res.code===0){
+        store.addPage({id: res.data, ...content});
+        store.setAddPageIsOpen(false);
+        toast.success('新增成功');
+      }else {
+        toast.error('新增失败'+res.msg);
+      }
+
     }
 
     return (

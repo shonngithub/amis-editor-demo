@@ -256,3 +256,14 @@ html {
 .antd-Page-body{
   padding: 0;
 }
+
+.antd-Layout-aside{
+  --Layout-aside-bg: #f7f9fa;
+  --Layout-aside-color:#141a25;
+  --Layout-asideLabel-color:#141a25;
+  --Layout-asideLink-color:#141a25;
+  --Layout-aside-onHover-bg: #45a8ff;
+  --Layout-asideLink-onHover-color: #fff;
+  --Layout-asideLink-onHover-iconColor: #fff;
+  --Layout-asideLink-fontSize: 14px;
+}

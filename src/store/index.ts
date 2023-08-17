@@ -60,6 +60,7 @@ export const MainStore = types
     }
 
     function addPage(data: {
+      id: string;
       label: string;
       path: string;
       icon?: string;
@@ -68,7 +69,7 @@ export const MainStore = types
       self.pages.push(
         PageStore.create({
           ...data,
-          id: `${++pagIndex}`
+          // id: `${++pagIndex}`
         })
       );
     }
@@ -114,14 +115,15 @@ export const MainStore = types
             console.log(res);
             if(res.code !== 0){
               toast.info(res.msg);
-              // window.open('/#/login', '_self');
+              // 去登录
+              // window.open(`${window.location.origin}/user-center/login?referrer=${encodeURIComponent(window.location.href)}`, '_self');
             }
-            const resList = res.data || [];
+            const resList = res?.data?.records || [];
             const initData = {
               pages: resList.map((it: any) => {
-                let item = JSON.parse(it.content);
+                let item = JSON.parse(it.jsonData);
                 return {
-                  id: `${item.id}`,
+                  id: `${item.id||it.id}`,
                   path: item.path,
                   label: item.label,
                   icon: item.icon,
@@ -136,7 +138,7 @@ export const MainStore = types
               preview: false,
               isMobile: false
             };
-            initData.pages.unshift({
+            (resList.length===0) && initData.pages.unshift({
               id: `0`,
               path: 'test',
               label: '示例',
