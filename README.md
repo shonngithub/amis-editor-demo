@@ -1,42 +1,12 @@
-# amis-editor-demo
+# lowCodeEditor
 
-amis 可视化编辑器, 在线体验：https://aisuda.github.io/amis-editor-demo
-
-要使用编辑器必须熟悉 React，如果不了解建议使用[速搭](https://aisuda.baidu.com/)。
+###### 基于amis-editor定制开发的使用jsonschema的低代码编辑器; 拓展了自定义组件
 
 ## 本地运行这个项目
 
 1. `npm i` 安装依赖
 3. `npm run dev` 等编译完成后本地打开页面看效果。
 
-## 在其他项目中使用 amis-editor
-
-```
-npm i amis-editor
-```
-
-使用 方法
-
-```jsx
-import {Editor} from 'amis-editor';
-
-
-render() {
-  return (
-    <Editor
-      {...props}
-    />
-  )
-}
-```
-
-属性说明：
-
--   `value: any` 值，amis 的 json 配置。
--   `onChange: (value: any) => void`。 当编辑器修改的时候会触发。
--   `preview?: boolean` 是否为预览状态。
--   `autoFocus?: boolean` 是否自动聚焦第一个可编辑的组件。
--   `plugins` 插件类集合
 
 ## 扩充自定义编辑器（旧版）
 

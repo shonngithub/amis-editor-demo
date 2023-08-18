@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import {Editor, ShortcutKey, MiniEditor} from 'amis-editor';
 import {inject, observer} from 'mobx-react';
 import {RouteComponentProps} from 'react-router-dom';
@@ -52,6 +52,21 @@ export default inject('store')(
     const index: number = parseInt(match.params.id, 10);
     const curLanguage = currentLocale(); // 获取当前语料类型
 
+    console.log(store.isMobile);
+
+    useEffect(() => {
+      console.log(store.isMobile);
+      const previewBodyElement = document.querySelector('.ae-Preview-body');
+      if (store.isMobile) {
+        if (previewBodyElement) {
+          // 添加 "is-mobile" 类名
+          previewBodyElement.classList.add('is-mobile');
+        }
+      }else {
+        previewBodyElement && previewBodyElement.classList.remove('is-mobile');
+      }
+    },[store.isMobile])
+
     if (index !== currentIndex) {
       currentIndex = index;
       store.updateSchema(store.pages[index].schema);
@@ -73,9 +88,9 @@ export default inject('store')(
       console.log(res);
       if(res.code===0){
         alert(
-            '发布成功,页面地址:    ' +
+            '页面路径:'+ store.pages[index].path + ',发布成功,页面分享地址:    ' +
             window.location.origin +
-            window.location.pathname +
+            window.location.pathname + '?tid=' +localStorage.getItem('tenantId') +
             '#/publishPage/' +
             store.pages[index].id,
             '提示'
@@ -162,10 +177,25 @@ export default inject('store')(
           </div>
         </div>
         <div className="Editor-inner">
+          {/*<div className="ae-Preview">*/}
+          {/*  <div className="ae-Preview-body is-edting is-mobile" style={{"position": "relative"}}>*/}
+          {/*    <div className="mobile-sound"></div>*/}
+          {/*    <div className="mobile-receiver"></div>*/}
+          {/*    <div className="mobile-left-btn"></div>*/}
+          {/*    <div className="mobile-right-btn"></div>*/}
+          {/*    <div className="mobile-open-btn"></div>*/}
+          {/*    <div className="ae-Preview-inner">*/}
+          {/*      1111111*/}
+          {/*    </div>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
+
+
+
           <Editor
             theme={'antd'}
             preview={store.preview}
-            isMobile={store.isMobile}
+            // isMobile={store.isMobile}
             value={store.schema}
             onChange={onChange}
             onPreview={() => {

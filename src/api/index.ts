@@ -14,7 +14,7 @@ const ajax = axios.create({
     headers: {
       'Content-Type': 'application/json',
       'x-app-code': 'RECRUITMENT',
-      'Authorization': 'bearer ' + (userToken?.access_token||userToken?.accessToken),
+      'Authorization': userToken?'bearer '+(userToken?.access_token||userToken?.accessToken):'',
     }
 })
 ajax.interceptors.response.use((response) => {
@@ -144,7 +144,11 @@ const jsonApi = {
     //     // "Cookie": cookies
     //   }
     // });
-    const res = await ajax.get(`/api/recruitment/front/html/public/${id}`);
+    const res = await ajax.get(`/api/recruitment/front/html/public/${id}`,{
+      headers: {
+        'Authorization': '',
+      }
+    });
     return res.data;
   }
 };

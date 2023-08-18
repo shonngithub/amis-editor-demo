@@ -1,7 +1,7 @@
 import {Renderer} from 'amis';
 import {RendererProps} from 'amis';
 import React, {useCallback, useEffect, useState} from 'react';
-import {Button, ListGroup, Pagination} from "amis-ui";
+import {Pagination} from "amis-ui";
 import dayjs from 'dayjs';
 import SearchBar from "../component/SearchBar";
 
