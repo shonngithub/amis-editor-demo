@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "amis dev",
     "build": "amis build",
-    "format": "prettier --write \"src/**/**/*.{js,jsx,ts,tsx,vue,scss,json}\""
+    "format": "prettier --write \"src/**/**/*.{js,jsx,ts,tsx,vue,scss,json}\"",
+    "pull": "rsync -av --exclude='.git' --exclude='node_modules' --exclude='node_modules' --exclude='.DS_Store' --exclude='.idea' ../amis-editor-demo/. ../amis-editor-gitlab"
   },
   "repository": {
     "type": "git",
