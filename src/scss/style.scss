@@ -267,3 +267,11 @@ html {
   --Layout-asideLink-onHover-iconColor: #fff;
   --Layout-asideLink-fontSize: 14px;
 }
+
+.antd-Pagination-next,.antd-Pagination-prev{
+    position:relative;
+    top: 12px;
+    span>svg {
+      top:10px;
+    }
+}

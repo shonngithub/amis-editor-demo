@@ -50,9 +50,6 @@ function getCookie(name: string): {access_token?:string,accessToken?:string} | u
 
 
 
-
-let targetDir = '/test/';
-
 const jsonApi = {
   basDir: 'src/',
   // targetDir: '/test',
@@ -150,6 +147,18 @@ const jsonApi = {
       }
     });
     return res.data;
+  },
+
+  getUerInfo: async ()=>{
+    // /api/v1/user
+    const userToken = getCookie('user_token');
+    if (userToken) {
+      console.log('user_token有值,开始获取用户信息', userToken, userToken?.access_token||userToken?.accessToken);
+      const res = await ajax.get(`/api/v1/user`);
+      return res.data;
+    }
+    return Promise.reject({code:400});
+
   }
 };
 export default jsonApi;

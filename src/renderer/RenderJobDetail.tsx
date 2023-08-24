@@ -41,7 +41,7 @@ const RenderJobDetail: React.FC<RenderJobDetailProps> = (
     const tenantId = urlParams.get('tenantId');
     const postLink = args.postLink||'';
 
-    console.log(id,tenantId,postLink);
+    console.log('postLink>>>',id,tenantId,postLink);
 
 
     const fetchJobsDetail = useCallback(()=>{

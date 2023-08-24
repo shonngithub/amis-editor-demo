@@ -88,12 +88,12 @@ export default inject('store')(
       console.log(res);
       if(res.code===0){
         alert(
-            '页面路径:'+ store.pages[index].path + ',发布成功,页面分享地址:    ' +
+            '页面路径:  /publishPage/'+ store.pages[index].id + '<br>'+'页面分享地址: ' +
             window.location.origin +
             window.location.pathname + '?tid=' +localStorage.getItem('tenantId') +
             '#/publishPage/' +
             store.pages[index].id,
-            '提示'
+            '发布成功'
         );
       }else {
         toast.error('发布失败'+res.msg);

@@ -111,7 +111,15 @@ export const MainStore = types
           const storeData = window.localStorage.getItem('store');
           if (storeData) applySnapshot(self, JSON.parse(storeData));
 
-          jsonApi.getAllFile().then(res => {
+          jsonApi.getUerInfo().then((res)=>{
+            // console.log(res?.data);
+            if(res?.data?.tenantId){
+              localStorage.setItem('tenantId',res.data.tenantId);
+            }
+          })
+
+          // publishPage 无需获取jsonlist
+          location.hash.indexOf('#/publishPage')===-1 && jsonApi.getAllFile().then(res => {
             console.log(res);
             if(res.code !== 0){
               toast.info(res.msg);

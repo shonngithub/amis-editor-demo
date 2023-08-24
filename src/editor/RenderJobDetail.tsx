@@ -24,13 +24,13 @@ export class MyRendererPlugin2 extends BasePlugin {
     // 用来生成预览图的
     previewSchema = {
         type: 'render-jobdetail',
-        target: 'demo'
+        postLink: 'demo'
     };
 
     // 拖入组件里面时的初始数据
     scaffold = {
         type: 'render-jobdetail',
-        target: '233'
+        postLink: 'https://aitx.knxgalaxy.com/springboard'
     };
 
     // 右侧面板相关
@@ -75,7 +75,7 @@ export class MyRendererPlugin2 extends BasePlugin {
                     title: '常规',
                     body: [
                         {
-                            "name": "jobDetailPath",
+                            "name": "postLink",
                             "type": "input-text",
                             "value": "https://aitx.knxgalaxy.com/springboard",
                             "label": "职位投递链接",

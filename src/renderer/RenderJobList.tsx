@@ -21,6 +21,7 @@ interface RenderJobListProps extends RendererProps {
   itemsPerPage: number;
   searchBoxKeys?: string;
   showBoxKeys?: string;
+  recruitmentType?: string;
   switchSearch?: boolean;
   jobDetailPath?: string
 }
@@ -43,14 +44,29 @@ const RenderJobList: React.FC<RenderJobListProps> = (
     const searchBoxKeys = args.searchBoxKeys||'';
     const showBoxKeys = args.showBoxKeys||'';
     const switchSearch = args.switchSearch;
+    const recruitmentType = args.recruitmentType // 招聘类型
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const tenantId = urlParams.get('tid')||localStorage.getItem('tenantId')||'';
+    console.log({showBoxKeys, searchBoxKeys, switchSearch, recruitmentType});
 
 
-    console.log(showBoxKeys,searchBoxKeys,switchSearch);
+
 
 
     const fetchJobs = useCallback(()=>{
-        return fetcher('/api/v1/pc/job/getAllList',
-            {tenantId:9852130, ...searchKeys, pageNum: currentPage, pageSize: itemsPerPage},
+
+      let query: {tenantId: string; pageSize: number; pageNum: number, recruitmentType?:string} = {
+        tenantId: tenantId, ...searchKeys, pageNum: currentPage, pageSize: itemsPerPage
+      };
+      if(recruitmentType==='社会招聘'||recruitmentType==='校园招聘'){
+        console.log(recruitmentType);
+        query.recruitmentType = recruitmentType
+      }
+      console.log(query);
+
+      return fetcher('/api/v1/pc/job/getAllList',
+            query,
             {
                 method: 'post',
                 headers: {
@@ -63,7 +79,7 @@ const RenderJobList: React.FC<RenderJobListProps> = (
         fetchJobs().then((res) => {
             console.log('res>>>>>>>>',res.data);
             setTotal(res.data.total);
-            setJobs(res.data.dataList);
+            setJobs(res.data.dataList||[]);
         })
     },[currentPage, searchKeys])
 
@@ -80,7 +96,7 @@ const RenderJobList: React.FC<RenderJobListProps> = (
   const toDetail = (id: string) => {
       console.log(id);
       if(!jobDetailPath) return;
-      window.location.href = `?id=${id}&tenantId=${localStorage.getItem('tenantId')||9852130}#${jobDetailPath}`
+      window.location.href = `?id=${id}&tenantId=${localStorage.getItem('tenantId')}#${jobDetailPath}`
   };
 
   return (

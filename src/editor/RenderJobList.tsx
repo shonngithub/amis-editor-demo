@@ -139,6 +139,26 @@ export class MyRendererPlugin1 extends BasePlugin {
                             "checkAll": true,
                             "joinValues": true,
                             "value": "A,B,C,D"
+                        },
+                        {
+                            "type": "checkboxes",
+                            "label": "招聘类型过滤",
+                            "name": "recruitmentType",
+                            "inline": true,
+                            "multiple": true,
+                            "options": [
+                                {
+                                    "label": "校园招聘",
+                                    "value": "校园招聘"
+                                },
+                                {
+                                    "label": "社会招聘",
+                                    "value": "社会招聘"
+                                }
+                            ],
+                            // "checkAll": true,
+                            "joinValues": true,
+                            "value": "校园招聘,社会招聘"
                         }
                     ]
                 },

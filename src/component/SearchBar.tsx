@@ -22,7 +22,7 @@ const SearchBar = (({ show, data, searchBoxKeys, hasKey, ...args }: SearchBarPro
                 "body": [
                     {
                         "type": "input-text",
-                        "name": "name",
+                        "name": "key",
                         "label": "职位名称",
                         "clearable": true,
                         "hidden": !hasKey('A', searchBoxKeys)
@@ -50,7 +50,7 @@ const SearchBar = (({ show, data, searchBoxKeys, hasKey, ...args }: SearchBarPro
         ({onSubmit, ...rest}: any) => {
             // console.log(show);
             // console.log(submit);
-            console.log(rest);
+            // console.log(rest);
             return {
                 onSubmit: (values: any) => {
                     console.log(values);
