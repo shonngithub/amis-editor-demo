@@ -11,7 +11,7 @@ interface Job {
     name: string;
     minimumwage: string;
     Maximumsalary: string;
-    addressChineseName: string;
+    locationtestChineseName: string;
     ReleaseDate: string;
 }
 
@@ -119,8 +119,8 @@ const RenderJobList: React.FC<RenderJobListProps> = (
             {jobs.map((job, index) => (
                 <div onClick={()=>toDetail(job.id)} key={index} className="border p-4 rounded-md shadow-md space-y-4 cursor-pointer">
                     {hasKey('A', showBoxKeys) && <h2 className="text-xl font-semibold">{job.name}</h2>}
-                    {hasKey('B', showBoxKeys) && <p>薪资: {job.minimumwage}_{job.Maximumsalary}{}</p>}
-                    {hasKey('C', showBoxKeys) && <p>工作地址: {job.addressChineseName}</p>}
+                    {hasKey('B', showBoxKeys) && <p>薪资: {job.minimumwage}-{job.Maximumsalary}{}</p>}
+                    {hasKey('C', showBoxKeys) && <p>工作地址: {job.locationtestChineseName}</p>}
                     {hasKey('D', showBoxKeys) && <p>发布时间: {dayjs(job.ReleaseDate).format('YYYY-MM-DD')}</p>}
                 </div>
             ))}

@@ -64,6 +64,10 @@ const RenderJobDetail: React.FC<RenderJobDetailProps> = (
     },[])
 
 
+  const replaceBR=(str:String)=>{
+    // return str.replace(/<br>/g,'\n');
+    return str.replace(/\n/g,'<br>');
+  }
 
 
 
@@ -91,13 +95,13 @@ const RenderJobDetail: React.FC<RenderJobDetailProps> = (
                 <div className="tit-require">
                     <span className="id_Text-15">职位要求</span>
                 </div>
-                <div dangerouslySetInnerHTML={{ __html:jobs?.JobRequirements||''}} className="line-height"></div>
+                <div dangerouslySetInnerHTML={{ __html:replaceBR(jobs?.JobRequirements||'')}} className="line-height"></div>
             </div>
             <div className="flex flex-col">
                 <div className="tit-require">
                     <span className="id_Text-15">工作职责</span>
                 </div>
-                <div dangerouslySetInnerHTML={{ __html:jobs?.JobResponsibilities||''}} className="line-height"></div>
+                <div dangerouslySetInnerHTML={{ __html:replaceBR(jobs?.JobResponsibilities||'')}} className="line-height"></div>
             </div>
 
             <div className="fixed bottom-0 left-0 right-0 pb-4 flex justify-center">
