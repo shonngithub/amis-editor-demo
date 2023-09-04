@@ -96,7 +96,7 @@ const RenderJobList: React.FC<RenderJobListProps> = (
   const toDetail = (id: string) => {
       console.log(id);
       if(!jobDetailPath) return;
-      window.location.href = `?id=${id}&tenantId=${localStorage.getItem('tenantId')}#${jobDetailPath}`
+      window.location.href = `?id=${id}&tenantId=${tenantId}#${jobDetailPath}`
   };
 
   return (
