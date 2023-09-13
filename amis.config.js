@@ -64,6 +64,10 @@ module.exports = {
         target: 'http://lite.knx.com/',
         changeOrigin: true
       },
+      '/open/api': {
+        target: 'http://lite.knx.com/',
+        changeOrigin: true
+      },
       '/open-api/upload_static_file': {
         target: 'https://aitx.knxgalaxy.com/',
         changeOrigin: true

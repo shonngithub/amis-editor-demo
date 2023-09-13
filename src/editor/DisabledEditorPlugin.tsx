@@ -39,7 +39,7 @@ export class ManagerEditorPlugin extends BasePlugin {
       ) {
         renderers[index].disabledRendererPlugin = true; // 更新状态
       }
-      // console.log(renderers[index].docLink);
+      // console.log('rendererName',renderers[index]);
       renderers[index].docLink = '';
 
       const noteBase = ["tpl","plain"]

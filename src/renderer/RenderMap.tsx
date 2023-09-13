@@ -1,0 +1,138 @@
+import {Renderer} from 'amis';
+import {RendererProps} from 'amis';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
+import dayjs from 'dayjs';
+import axios from 'axios';
+
+
+// interface Job {
+//     id: string,
+//     name: string;
+//     minimumwage: string;
+//     Maximumsalary: string;
+//     locationtestChineseName: string;
+//     ReleaseDate: string;
+// }
+interface RenderMapProps extends RendererProps {
+  // jobs: Job[];
+  width?: string;
+  height?: string;
+  location?: string;
+}
+declare const window: any;
+
+const RenderMap: React.FC<RenderMapProps> = (
+    {
+       width = '100%',
+       height = '500px',
+       location = '',
+        env,
+        ...args
+    }) => {
+    const [centerLocation, setCenterLocation] = useState({
+        lng: 116.404,
+        lat: 39.928
+    });
+    const mapObj = useRef();
+
+    console.log('args>>>>',args, location);
+
+    const fetcher = env.fetcher;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const tenantId = urlParams.get('tid')||localStorage.getItem('tenantId')||'';
+
+
+  function processWidthParameter(value: string) {
+    // 检查是否以 % 结尾，如果是则返回原始值
+    if (/%$/.test(value)) {
+      return value;
+    }
+    // 检查是否以 px 结尾，如果是则返回原始值
+    if (/px$/.test(value)) {
+      return value;
+    }
+    // 检查是否以 vw 结尾，如果是则返回原始值
+    if (/vw$/.test(value)) {
+      return value;
+    }
+    // 如果没有单位，则默认补上 px，并返回结果
+    return value + 'px';
+  }
+
+  // 示例用法
+  // console.log(processWidthParameter('50%'));  // 输出：50%
+  // console.log(processWidthParameter('200px'));  // 输出：200px
+  // console.log(processWidthParameter('80vw'));  // 输出：80vw
+  // console.log(processWidthParameter('300'));  // 输出：300px
+
+    // const fetchJobs = useCallback(()=>{
+    //   return fetcher('/open/api/map/baidu/geocoding?location='+ encodeURIComponent(location) ,{},
+    //     {
+    //             method: 'get',
+    //             headers: {
+    //                 apikey:'jBYl6ffn1x2WoeCm3ICq65bNIrIoOJzy'
+    //             }
+    //         })
+    // },[location])
+
+  const getLocation = async () => {
+    const res = await axios(`/open/api/map/baidu/geocoding?location=${encodeURIComponent(location)}&coordType=bd09ll`,
+      {
+        method: 'get',
+        headers: {
+          apikey:'jBYl6ffn1x2WoeCm3ICq65bNIrIoOJzy'
+        }
+      });
+    console.log('res',res.data);
+    if(res.data?.status===0){
+      console.log(res.data.result);
+      const centerLocation = res.data?.result?.location;
+      centerLocation && setCenterLocation(centerLocation);
+      addMarker(mapObj.current, centerLocation);
+    }
+  };
+
+  const addMarker = (map:any, centerLocation: any) => {
+    map.centerAndZoom(new window.BMapGL.Point(centerLocation.lng, centerLocation.lat), 16);
+    map.enableScrollWheelZoom(true);
+    map.clearOverlays();
+    // 创建点标记
+    const marker1 = new window.BMapGL.Marker(new window.BMapGL.Point(centerLocation.lng, centerLocation.lat));
+    // const marker2 = new window.BMapGL.Marker(new window.BMapGL.Point(116.404, 39.915));
+    // 在地图上添加点标记
+    map.addOverlay(marker1);
+    // map.addOverlay(marker2);
+  }
+
+
+  // useEffect(() => {
+  //   console.log(1);
+  //   getLocation();
+  //   }, [location]
+  // );
+
+  useEffect(() => {
+    console.log('xxxxxxxx',window.BMapGL);
+    mapObj.current = new window.BMapGL.Map('container');
+    const map = mapObj.current || new window.BMapGL.Map('container');
+    if(location) {
+      getLocation();
+    }else {
+      addMarker(map, centerLocation);
+    }
+  }, [location]);
+
+  return (
+    <>
+      <div id="container" style={{ width: processWidthParameter(width), height: processWidthParameter(height) }}></div>
+    </>
+  )
+
+};
+
+export default Renderer({
+  type: 'render-map',
+  name: 'render-map',
+  autoVar: true
+})(RenderMap)

@@ -15,7 +15,7 @@ export default class MyRenderer extends React.Component<MyRendererProps> {
     // https://infinityicon.infinitynewtab.com/user-share-icon/226d9bd6e7176a22d1696d751947a178.png
     imgUrl: "",
     width: '100px',
-    height: '100px'
+    height: 'auto'
   };
 
   render() {

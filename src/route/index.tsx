@@ -11,6 +11,7 @@ import '../renderer/MyRenderer';
 import '../renderer/RenderImg';
 import '../renderer/RenderJobList';
 import '../renderer/RenderJobDetail';
+import '../renderer/RenderMap';
 
 const Preview = React.lazy(() => import('./Preview'));
 const Editor = React.lazy(() => import('./Editor'));
