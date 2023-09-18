@@ -7,7 +7,16 @@
   <meta name="viewport" content="initial-scale=1.0,user-scalable=no,width=device-width,viewport-fit=cover">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <!--  <script src="https://cdn.tailwindcss.com"></script>-->
-  <script src="//api.map.baidu.com/api?type=webgl&v=1.0&ak=UMboNMvzUASeKIKefGpU8okY6hDGIPcG"></script>
+<!--  <script src="//api.map.baidu.com/api?type=webgl&v=1.0&ak=UMboNMvzUASeKIKefGpU8okY6hDGIPcG"></script>-->
+  <script>
+    // 动态创建 script 标签
+    if(window.location.hostname === 'aitx.knxgalaxy.com'){
+      let scriptElement = document.createElement('script');
+      scriptElement.src = '//api.map.baidu.com/api?type=webgl&v=1.0&ak=UMboNMvzUASeKIKefGpU8okY6hDGIPcG';
+      document.head.appendChild(scriptElement);
+    }
+  </script>
+
   <title>amis-editor</title>
   <link
     rel="stylesheet"

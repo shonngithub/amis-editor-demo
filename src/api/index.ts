@@ -17,12 +17,20 @@ const ajax = axios.create({
       'Authorization': userToken?'bearer '+(userToken?.access_token||userToken?.accessToken):'',
     }
 })
+
+const whiteList = [
+  '/#/login',
+  '/#/publishPage',
+]
 ajax.interceptors.response.use((response) => {
   // console.log('ajax.interceptors.response',response);
   return response
 }, (error) => {
   console.log('ajax.interceptors.response',error);
-  if (error.response && error.response.status === 401) {
+  // 判断当前页面hash是否以白名单中的任何一个字符串开头
+  const isMatched = whiteList.some(item => window.location.hash.startsWith(item));
+  console.log('isMatched',isMatched);
+  if (error.response && (error.response.status === 401) && !isMatched) {
     toast.error('用户信息失效，请重新登录', {position: 'top-center', duration: 10000});
   }
   return Promise.reject({code:400,...error});

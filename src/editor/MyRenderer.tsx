@@ -67,10 +67,26 @@ export default class MyRendererEditor extends BasicEditor {
             ]
           },
 
-          // {
-          //   title: '外观',
-          //   controls: []
-          // }
+          {
+            title: '拓展',
+            controls: [
+              {
+                name: 'jumpUrl',
+                label: '跳转链接',
+                type: 'text'
+              },
+              // {
+              //   name: 'coverText',
+              //   label: '浮层文字',
+              //   type: 'text'
+              // },
+              // {
+              //   name: 'coverTextClass',
+              //   label: '浮层文字类名',
+              //   type: 'text'
+              // },
+            ]
+          }
         ]
       }
     ]

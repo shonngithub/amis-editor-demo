@@ -3,6 +3,7 @@ import {RendererProps} from 'amis';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import dayjs from 'dayjs';
 import axios from 'axios';
+import { autoConvertPX } from '../component/utils'
 
 
 // interface Job {
@@ -41,30 +42,6 @@ const RenderMap: React.FC<RenderMapProps> = (
 
     const urlParams = new URLSearchParams(window.location.search);
     const tenantId = urlParams.get('tid')||localStorage.getItem('tenantId')||'';
-
-
-  function processWidthParameter(value: string) {
-    // 检查是否以 % 结尾，如果是则返回原始值
-    if (/%$/.test(value)) {
-      return value;
-    }
-    // 检查是否以 px 结尾，如果是则返回原始值
-    if (/px$/.test(value)) {
-      return value;
-    }
-    // 检查是否以 vw 结尾，如果是则返回原始值
-    if (/vw$/.test(value)) {
-      return value;
-    }
-    // 如果没有单位，则默认补上 px，并返回结果
-    return value + 'px';
-  }
-
-  // 示例用法
-  // console.log(processWidthParameter('50%'));  // 输出：50%
-  // console.log(processWidthParameter('200px'));  // 输出：200px
-  // console.log(processWidthParameter('80vw'));  // 输出：80vw
-  // console.log(processWidthParameter('300'));  // 输出：300px
 
     // const fetchJobs = useCallback(()=>{
     //   return fetcher('/open/api/map/baidu/geocoding?location='+ encodeURIComponent(location) ,{},
@@ -125,7 +102,7 @@ const RenderMap: React.FC<RenderMapProps> = (
 
   return (
     <>
-      <div id="container" style={{ width: processWidthParameter(width), height: processWidthParameter(height) }}></div>
+      <div id="container" style={{ width: autoConvertPX(width), height: autoConvertPX(height) }}></div>
     </>
   )
 

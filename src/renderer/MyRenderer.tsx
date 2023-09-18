@@ -1,9 +1,15 @@
 import {Renderer} from 'amis';
 import {RendererProps} from 'amis';
 import React from 'react';
+import { autoConvertPX } from '../component/utils'
 
 export interface MyRendererProps extends RendererProps {
   imgUrl?: string;
+  width?: string;
+  height?: string;
+  coverText?: string;
+  jumpUrl?: string;
+  coverTextClass?: string;
 }
 
 @Renderer({
@@ -19,12 +25,23 @@ export default class MyRenderer extends React.Component<MyRendererProps> {
   };
 
   render() {
-    const { width, height, imgUrl, ...args} = this.props;
+    const { width, height, imgUrl,jumpUrl,coverText, coverTextClass, ...args} = this.props;
     // console.log(width, height, imgUrl);
+
+    const jump = (url: string|undefined) => {
+      if(!url) return;
+      if(url.indexOf('publishPage/') > -1){
+        window.open(location.href.split('#')[0]+'#'+url,'_self');
+        window.location.reload();
+        return;
+      }
+      window.location.href = url
+    }
+
     return (
-        <div>
-          <img style={{width, height }} src={imgUrl} alt=""/>
-        </div>
+        // <div>
+          <img onClick={()=>{jump(jumpUrl)}} style={{width:autoConvertPX(width||''), height:autoConvertPX(height||'') }} src={imgUrl} alt=""/>
+        // </div>
     );
   }
 }
