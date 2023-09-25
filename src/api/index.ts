@@ -19,8 +19,8 @@ const ajax = axios.create({
 })
 
 const whiteList = [
-  '/#/login',
-  '/#/publishPage',
+  // '#/login',
+  '#/publishPage',
 ]
 ajax.interceptors.response.use((response) => {
   // console.log('ajax.interceptors.response',response);

@@ -15,6 +15,7 @@ import './renderer/RenderImg';
 import './renderer/RenderJobList';
 import './renderer/RenderJobDetail';
 import './renderer/RenderMap';
+import './renderer/RenderBackground';
 
 setDefaultTheme('antd');
 

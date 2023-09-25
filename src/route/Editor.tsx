@@ -13,6 +13,7 @@ import '../editor/MyRenderer';
 import '../editor/RenderJobList';
 import '../editor/RenderJobDetail';
 import '../editor/RenderMap';
+import '../editor/RenderBackground';
 
 
 // import '../renderer/RenderFullText';

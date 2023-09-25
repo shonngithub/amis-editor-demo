@@ -25,8 +25,10 @@ export default class MyRenderer extends React.Component<MyRendererProps> {
   };
 
   render() {
-    const { width, height, imgUrl,jumpUrl,coverText, coverTextClass, ...args} = this.props;
+    const { body, render, width, height, imgUrl,jumpUrl,coverText, coverTextClass, ...args} = this.props;
     // console.log(width, height, imgUrl);
+    // console.log(args);
+    console.log(body, render);
 
     const jump = (url: string|undefined) => {
       if(!url) return;
@@ -39,9 +41,14 @@ export default class MyRenderer extends React.Component<MyRendererProps> {
     }
 
     return (
-        // <div>
+        <div>
           <img onClick={()=>{jump(jumpUrl)}} style={{width:autoConvertPX(width||''), height:autoConvertPX(height||'') }} src={imgUrl} alt=""/>
-        // </div>
+          <div>
+            {body?render('body', body, {
+              // 这里的信息会作为 props 传递给子组件，一般情况下都不需要这个
+            }):''}
+          </div>
+         </div>
     );
   }
 }
