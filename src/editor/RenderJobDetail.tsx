@@ -79,6 +79,11 @@ export class MyRendererPlugin2 extends BasePlugin {
                             "type": "input-text",
                             "value": "https://aitx.knxgalaxy.com/springboard",
                             "label": "职位投递链接",
+                        },
+                        {
+                            "name": "showMap",
+                            "type": "switch",
+                            "label": "是否展示地图",
                         }
                     ]
                 },

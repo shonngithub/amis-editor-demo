@@ -4,7 +4,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import dayjs from 'dayjs';
 import './RenderJobDetail.scss';
 import {Button} from "amis-ui";
-
+import {MapLogic} from "./RenderMap";
 
 
 interface Job {
@@ -22,12 +22,14 @@ interface Job {
 
 interface RenderJobDetailProps extends RendererProps {
   postLink?: string
+  showMap?: boolean
 }
 
 const RenderJobDetail: React.FC<RenderJobDetailProps> = (
     {
        itemsPerPage = 8,
        className,
+        showMap = false,
         env,
         ...args
     }) => {
@@ -103,6 +105,18 @@ const RenderJobDetail: React.FC<RenderJobDetailProps> = (
                 </div>
                 <div dangerouslySetInnerHTML={{ __html:replaceBR(jobs?.JobResponsibilities||'')}} className="line-height"></div>
             </div>
+
+          {
+            showMap && <div className="flex flex-col">
+              <div className="tit-require">
+                <span className="id_Text-15">工作地址</span>
+              </div>
+              <div>
+                <MapLogic env={env} location={jobs?.addressChineseName} height={'300px'} width={'50%'} />
+              </div>
+            </div>
+          }
+
 
             <div className="fixed bottom-0 left-0 right-0 pb-4 flex justify-center">
                 <Button actionType="actionType" level="primary" size="lg" onClick={() => {
